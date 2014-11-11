@@ -70,7 +70,9 @@
 
 (defun init-go-env ()
   "Initialize Golang programming environment."
-  (add-hook 'go-mode-hook 'go-eldoc-setup))
+  (add-hook 'go-mode-hook 'go-eldoc-setup)
+  (add-hook 'before-save-hook 'gofmt-before-save))
+
 
 ;; Execute init functinos
 
@@ -91,17 +93,21 @@
  ;; If there is more than one, they won't work right.
  '(company-backends
    (quote
-    (company-bbdb company-nxml company-css company-eclim company-go company-clang company-xcode company-ropemacs company-cmake company-capf
-		  (company-dabbrev-code company-gtags company-etags company-keywords)
-		  company-oddmuse company-files company-dabbrev)))
+	(company-bbdb company-nxml company-css company-eclim company-go company-clang company-xcode company-ropemacs company-cmake company-capf
+				  (company-dabbrev-code company-gtags company-etags company-keywords)
+				  company-oddmuse company-files company-dabbrev)))
  '(company-idle-delay 0)
+ '(company-minimum-prefix-length 2)
  '(company-tooltip-limit 15)
  '(custom-enabled-themes (quote (solarized-light)))
  '(custom-safe-themes
    (quote
-    ("d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default)))
+	("d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default)))
  '(gofmt-command "goimports")
- '(make-backup-files nil))
+ '(make-backup-files nil)
+ '(require-final-newline (quote ask))
+ '(show-trailing-whitespace t)
+ '(tab-width 4))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
