@@ -50,6 +50,11 @@
   ;; Set font to Source Code Pro
   (set-frame-font "-*-Source Code Pro-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1"))
 
+(defun source-env-variables-from-shell ()
+  "Retrive environment variables from the shell when started as GUI application on OS X."
+  (when (memq window-system '(mac ns))
+    (exec-path-from-shell-initialize)))
+
 (defun init-company-mode ()
   "Initialize company-mode."
   (global-company-mode 1))
@@ -60,15 +65,21 @@
 
 (defun init-helm-mode ()
   "Initialize helm mode."
-  (helm-mode 1))
+  (helm-mode 1)
+  (global-set-key (kbd "C-M-i") 'helm-company))
 
+(defun init-go-env ()
+  "Initialize Golang programming environment."
+  (add-hook 'go-mode-hook 'go-eldoc-setup))
 
 ;; Execute init functinos
 
 (init-emacs)
+(source-env-variables-from-shell)
 (init-company-mode)
 (init-flycheck-mode)
 (init-helm-mode)
+(init-go-env)
 
 
 ;; Customize variables
@@ -78,12 +89,18 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(solarized-distinct-fringe-background t)
- '(solarized-high-contrast-mode-line t)
+ '(company-backends
+   (quote
+    (company-bbdb company-nxml company-css company-eclim company-go company-clang company-xcode company-ropemacs company-cmake company-capf
+		  (company-dabbrev-code company-gtags company-etags company-keywords)
+		  company-oddmuse company-files company-dabbrev)))
+ '(company-idle-delay 0)
+ '(company-tooltip-limit 15)
  '(custom-enabled-themes (quote (solarized-light)))
  '(custom-safe-themes
    (quote
     ("d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default)))
+ '(gofmt-command "goimports")
  '(make-backup-files nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
