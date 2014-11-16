@@ -52,6 +52,7 @@
 
 (defun source-env-variables-from-shell ()
   "Retrive environment variables from the shell when started as GUI application on OS X."
+  (exec-path-from-shell-copy-env "GOPATH")
   (when (memq window-system '(mac ns))
     (exec-path-from-shell-initialize)))
 
