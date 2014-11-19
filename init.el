@@ -50,8 +50,8 @@
   ;; Set font to Source Code Pro
   (set-frame-font "-*-Source Code Pro-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1"))
 
-(defun source-env-variables-from-shell ()
-  "Retrive environment variables from the shell when started as GUI application on OS X."
+(defun retrieve-env-variables-from-shell ()
+  "Retrieve environment variables from the shell when started as GUI application on OS X."
   (exec-path-from-shell-copy-env "GOPATH")
   (when (memq window-system '(mac ns))
     (exec-path-from-shell-initialize)))
@@ -78,7 +78,7 @@
 ;; Execute init functinos
 
 (init-emacs)
-(source-env-variables-from-shell)
+(retrieve-env-variables-from-shell)
 (init-company-mode)
 (init-flycheck-mode)
 (init-helm-mode)
